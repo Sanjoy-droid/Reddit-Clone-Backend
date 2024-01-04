@@ -4,6 +4,7 @@
   "description": "Your account on the cloud",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "build": "npm i",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
