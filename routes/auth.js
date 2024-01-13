@@ -81,7 +81,6 @@ router.post(
     const { email, password } = req.body;
 
     try {
-      // Added 'await' to ensure asynchronous operation completion
       let user = await User.findOne({ email });
 
       if (!user) {
@@ -123,6 +122,20 @@ router.post("/getuser", fetchuser, async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Internal Server Error");
+  }
+});
+
+// Route 4: Test User Login using POST "/api/auth/testlogin". Login required
+
+router.post("/testlogin", async (req, res) => {
+  try {
+    const authToken =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVhMmJkZWMyMDlkNzk0ODhmNmMxMzliIn0sImlhdCI6MTcwNTE2NDI2OX0.dCz0gvBAkjI98EZQyFFfJLl4wLPXmOgsxrywVbPhyTU";
+
+    res.json({ success: true, authToken });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Internal Server Error Occurred");
   }
 });
 

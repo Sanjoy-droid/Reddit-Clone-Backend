@@ -47,8 +47,6 @@ router.delete("/deletepost/:id", fetchuser, async (req, res) => {
 
     let post = await Posts.findById(req.params.id);
 
-    // const userId = req.user.id;
-
     if (!post) {
       return res.status(404).json({ error: "Post not found" });
     }
@@ -67,7 +65,7 @@ router.delete("/deletepost/:id", fetchuser, async (req, res) => {
   }
 });
 
-// Fetch all Posts using GET: "/api/auth/fetchallposts"
+// Fetch all Posts using GET: "/api/post/fetchallposts"
 
 router.get("/fetchallposts", async (req, res) => {
   try {
@@ -107,7 +105,6 @@ router.post("/upvote/:id", async (req, res) => {
 });
 
 // Change DownVote Count onclick
-
 router.post("/downvote/:id", async (req, res) => {
   try {
     const postId = req.params.id;
@@ -129,6 +126,50 @@ router.post("/downvote/:id", async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).send("Internal Server Error");
+  }
+});
+
+// Update Post using PUT: "api/post/updatepost/:id". Login required
+
+router.put("/updatepost/:id", fetchuser, async (req, res) => {
+  const { title, description, tag } = req.body;
+
+  try {
+    // Create a new Post object
+    const newPost = {};
+
+    if (title) {
+      newPost.title = title;
+    }
+    if (description) {
+      newPost.description = description;
+    }
+    if (tag) {
+      newPost.tag = tag;
+    }
+
+    // Find the Post to be Updated
+    let post = await Posts.findById(req.params.id);
+
+    if (!post) {
+      return res.status(404).send("Not Found");
+    }
+
+    // Ensure that the user owns this post
+    if (post.user.toString() !== req.user.id) {
+      return res.status(401).send("Not Allowed");
+    }
+
+    // Update the post
+    post = await Posts.findByIdAndUpdate(
+      req.params.id,
+      { $set: newPost },
+      { new: true }
+    );
+    res.json({ post });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
   }
 });
 
