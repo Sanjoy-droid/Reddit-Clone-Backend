@@ -6,15 +6,15 @@ This repository contains the backend code for a Reddit clone, implemented using 
 
 ## Features
 
-     User Authentication: Implement user authentication functionalities, including sign up, log in, log out, and token-based authentication using JSON Web Tokens (JWT).
+User Authentication: Implement user authentication functionalities, including sign up, log in, log out, and token-based authentication using JSON Web Tokens (JWT).
 
-     Post Management: Define API routes for creating, updating, deleting, and fetching posts, enabling users to interact with posts and comments within the application.
+Post Management: Define API routes for creating, updating, deleting, and fetching posts, enabling users to interact with posts and comments within the application.
 
-     Data Persistence: Connect to a MongoDB database to store user data, post content, and other relevant information, ensuring data integrity and persistence across server restarts.
+Data Persistence: Connect to a MongoDB database to store user data, post content, and other relevant information, ensuring data integrity and persistence across server restarts.
 
-     Validation and Error Handling: Utilize Express.js middleware for request validation and error handling, ensuring robustness and security in API interactions.
+Validation and Error Handling: Utilize Express.js middleware for request validation and error handling, ensuring robustness and security in API interactions.
 
-     Cross-Origin Resource Sharing (CORS): Enable CORS middleware to allow cross-origin requests from the frontend application, facilitating communication between the client and server.
+Cross-Origin Resource Sharing (CORS): Enable CORS middleware to allow cross-origin requests from the frontend application, facilitating communication between the client and server.
 
 ## Installation
 
@@ -38,6 +38,7 @@ This repository contains the backend code for a Reddit clone, implemented using 
 ```bash
 PORT=5000
 MONGOURI=<your_mongodb_connection_uri>
+JWT_SECRET=<your_secret_enviroment_variable>
 ```
 
 2. **Start the development server:**
@@ -57,7 +58,7 @@ POST "/api/auth/getuser" Get detailsof an existing user.
 POST "/api/auth/testlogin" Login as aTest User.
 
      POST "/api/posts/addpost" Add post.
-     POST "/api/posts/fetchallposts" Getall posts.
+     POST "/api/posts/fetchallposts" Get all posts.
      POST "/upvote/:id" Upvote Post
      POST "/downvote/:id" Downvote Post
      POST "/updatepost/:id" Update Post
