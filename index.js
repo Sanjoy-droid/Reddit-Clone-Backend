@@ -14,8 +14,8 @@ connectToMongo();
 // Available Routes
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/post", require("./routes/post"));
-app.get("/hello", (req, res) => {
-  res.send("hello");
+app.get("/api/hello", (req, res) => {
+  res.json("hi");
 });
 
 app.listen(port, () => {
